@@ -1,6 +1,6 @@
 ﻿namespace HealthGym
 {
-    partial class MantenedorEnfermedad
+    partial class MantenedorAlergia
     {
         /// <summary>
         /// Required designer variable.
@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvEnfermedad = new DataGridView();
+            dgvAlergia = new DataGridView();
             label1 = new Label();
             txtNombre = new TextBox();
             btnAñadir = new Button();
             btnEditar = new Button();
             btnModificar = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvEnfermedad).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAlergia).BeginInit();
             SuspendLayout();
             // 
-            // dgvEnfermedad
+            // dgvAlergia
             // 
-            dgvEnfermedad.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEnfermedad.Location = new Point(12, 12);
-            dgvEnfermedad.Name = "dgvEnfermedad";
-            dgvEnfermedad.RowHeadersWidth = 51;
-            dgvEnfermedad.Size = new Size(653, 269);
-            dgvEnfermedad.TabIndex = 0;
-            dgvEnfermedad.CellContentClick += dgvEnfermedad_CellClick;
+            dgvAlergia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAlergia.Location = new Point(12, 12);
+            dgvAlergia.Name = "dgvAlergia";
+            dgvAlergia.RowHeadersWidth = 51;
+            dgvAlergia.Size = new Size(655, 258);
+            dgvAlergia.TabIndex = 0;
+            dgvAlergia.CellContentClick += dgvAlergia_CellClick;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(67, 303);
+            label1.Location = new Point(27, 285);
             label1.Name = "label1";
             label1.Size = new Size(67, 20);
             label1.TabIndex = 1;
@@ -58,14 +58,14 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(149, 304);
+            txtNombre.Location = new Point(99, 286);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(125, 27);
             txtNombre.TabIndex = 2;
             // 
             // btnAñadir
             // 
-            btnAñadir.Location = new Point(415, 304);
+            btnAñadir.Location = new Point(355, 297);
             btnAñadir.Name = "btnAñadir";
             btnAñadir.Size = new Size(94, 29);
             btnAñadir.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(415, 354);
+            btnEditar.Location = new Point(355, 350);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(94, 29);
             btnEditar.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             // btnModificar
             // 
-            btnModificar.Location = new Point(415, 402);
+            btnModificar.Location = new Point(355, 402);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(94, 29);
             btnModificar.TabIndex = 5;
@@ -93,7 +93,7 @@
             btnModificar.UseVisualStyleBackColor = true;
             btnModificar.Click += btnModificar_Click;
             // 
-            // MantenedorEnfermedad
+            // MantenedorAlergia
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -103,17 +103,17 @@
             Controls.Add(btnAñadir);
             Controls.Add(txtNombre);
             Controls.Add(label1);
-            Controls.Add(dgvEnfermedad);
-            Name = "MantenedorEnfermedad";
-            Text = "MantenedorEnfermedad";
-            ((System.ComponentModel.ISupportInitialize)dgvEnfermedad).EndInit();
+            Controls.Add(dgvAlergia);
+            Name = "MantenedorAlergia";
+            Text = "MantenedorAlergia";
+            ((System.ComponentModel.ISupportInitialize)dgvAlergia).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dgvEnfermedad;
+        private DataGridView dgvAlergia;
         private Label label1;
         private TextBox txtNombre;
         private Button btnAñadir;

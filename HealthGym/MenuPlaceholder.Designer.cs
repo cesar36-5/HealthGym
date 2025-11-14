@@ -35,6 +35,7 @@
             button5 = new Button();
             button6 = new Button();
             button7 = new Button();
+            button8 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -114,6 +115,17 @@
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
+            // button8
+            // 
+            button8.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button8.Location = new Point(431, 257);
+            button8.Name = "button8";
+            button8.Size = new Size(102, 32);
+            button8.TabIndex = 7;
+            button8.Text = "Recetas";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
             // MenuPlaceholder
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -121,6 +133,7 @@
             BackgroundImage = Properties.Resources.Propuesta_gatitos;
             BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(717, 450);
+            Controls.Add(button8);
             Controls.Add(button7);
             Controls.Add(button6);
             Controls.Add(button5);
@@ -142,5 +155,6 @@
         private Button button5;
         private Button button6;
         private Button button7;
+        private Button button8;
     }
 }

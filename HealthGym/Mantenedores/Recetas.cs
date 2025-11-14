@@ -246,14 +246,14 @@ namespace HealthGym.Mantenedores
                     m.Paso = int.Parse(Tbox_Paso.Text);
                     m.Instruccion = Tbox_Instruccion.Text;
 
-                    Limpiar();
-
                     if (LogRecetaPaso.Instancia.AgregarPaso(m))
                     {
                         pasos = LogRecetaPaso.Instancia.CargarPasosDe(alimento);
 
                         Dgv_Mats.DataSource = materiales;
                         Dgv_Pasos.DataSource = pasos;
+
+                        Limpiar();
 
                         Form msg = new Form();
                         msg.Size = new Size(300, 150);

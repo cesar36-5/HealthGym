@@ -30,7 +30,7 @@ namespace HealthGym
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Alergias m = new Alergias();
+            MantenedorAlergia m = new MantenedorAlergia();
             m.Show();
         }
 
@@ -49,6 +49,12 @@ namespace HealthGym
         private void button6_Click(object sender, EventArgs e)
         {
             PlanNutricional m = new PlanNutricional();
+            m.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Recetas m = new Recetas();
             m.Show();
         }
     }

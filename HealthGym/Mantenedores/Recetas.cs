@@ -249,7 +249,6 @@ namespace HealthGym.Mantenedores
                     if (LogRecetaPaso.Instancia.AgregarPaso(m))
                     {
                         pasos = LogRecetaPaso.Instancia.CargarPasosDe(alimento);
-
                         Dgv_Mats.DataSource = materiales;
                         Dgv_Pasos.DataSource = pasos;
 

@@ -1,4 +1,5 @@
-﻿using CapaEntidad;
+﻿using CapaDatos;
+using CapaEntidad;
 using CapaLogica;
 using System;
 using System.Collections.Generic;
@@ -12,23 +13,22 @@ using System.Windows.Forms;
 
 namespace HealthGym
 {
-    public partial class MantenedorEnfermedad : Form
+    public partial class MantenedorAlergia : Form
     {
-        public MantenedorEnfermedad()
+        public MantenedorAlergia()
         {
             InitializeComponent();
-            ListarEnfermedad();
+            ListarAlergia();
         }
-        // listar
-        public void ListarEnfermedad()
+        // LISTAR
+        public void ListarAlergia()
         {
-            dgvEnfermedad.DataSource = LogEnfermedad.Instancia.ListarEnfermedad();
+            dgvAlergia.DataSource = LogAlergia.Instancia.ListarAlergia();
         }
         private void LimpiarCampos()
         {
             txtNombre.Text = "";
         }
-       
         private void btnAñadir_Click(object sender, EventArgs e)
         {
             try
@@ -40,42 +40,40 @@ namespace HealthGym
                     throw new Exception("Debe llenar el nombre.");
                 }
 
-                EntEnfermedad enf = new EntEnfermedad();
+                EntAlergia enf = new EntAlergia();
                 enf.Nombre = nombre;
 
-                LogEnfermedad.Instancia.InsertarEnfermedad(enf);
-                MessageBox.Show("Enfermedad agregada correctamente.");
+                LogAlergia.Instancia.InsertarAlergia(enf);
+                MessageBox.Show("Alergia agregada correctamente.");
 
                 LimpiarCampos();
                 txtNombre.Enabled = false;
-                ListarEnfermedad();
+                ListarAlergia();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-        }
-
-        int idSeleccionado = 0;
-        string nombreAnte = "";
-        private void dgvEnfermedad_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow fila = dgvEnfermedad.Rows[e.RowIndex];
-                idSeleccionado = Convert.ToInt32(fila.Cells[0].Value);
-                txtNombre.Text = fila.Cells[1].Value.ToString();
-
-                nombreAnte = txtNombre.Text.Trim(); 
-            }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            txtNombre.Enabled = true;
+            txtNombre.Visible = true;
             btnAñadir.Visible = true;
             btnModificar.Visible = true;
+        }
+
+        int idSeleccionado = 0;
+        string nombreAnte = "";
+        private void dgvAlergia_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = dgvAlergia.Rows[e.RowIndex];
+                idSeleccionado = Convert.ToInt32(fila.Cells[0].Value);
+                txtNombre.Text = fila.Cells[1].Value.ToString();
+                nombreAnte = txtNombre.Text.Trim();
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -94,16 +92,16 @@ namespace HealthGym
                     throw new Exception("Debe ingresar un nombre diferente al actual.");
                 }
 
-                EntEnfermedad enf = new EntEnfermedad();
+                EntAlergia enf = new EntAlergia();
                 enf.Id = idSeleccionado;
                 enf.Nombre = nuevoNombre;
 
-                LogEnfermedad.Instancia.EditarEnfermedad(enf);
-                MessageBox.Show("Enfermedad modificada correctamente.");
+                LogAlergia.Instancia.EditarAlergia(enf);
+                MessageBox.Show("Alergia modificada correctamente.");
 
                 LimpiarCampos();
                 txtNombre.Enabled = true;
-                ListarEnfermedad();
+                ListarAlergia();
             }
             catch (Exception ex)
             {

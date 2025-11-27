@@ -1,4 +1,3 @@
-using HealthGym.Mantenedores;
 
 namespace HealthGym
 {
@@ -11,7 +10,7 @@ namespace HealthGym
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new MenuPlaceholder());
+            //Application.Run(new MenuPlaceholder());
         }
     }
 }

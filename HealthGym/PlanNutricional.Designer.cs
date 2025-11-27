@@ -40,8 +40,6 @@
             Lbl_papu = new Label();
             Lbl_carbos = new Label();
             Lbl_Calorias = new Label();
-            comboBox1 = new ComboBox();
-            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)Dgv_Plan).BeginInit();
             Gbox.SuspendLayout();
             SuspendLayout();
@@ -53,6 +51,7 @@
             Tbox_DNI.Name = "Tbox_DNI";
             Tbox_DNI.Size = new Size(83, 29);
             Tbox_DNI.TabIndex = 0;
+            Tbox_DNI.Text = "73870884";
             // 
             // label1
             // 
@@ -80,12 +79,13 @@
             Dgv_Plan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Dgv_Plan.Location = new Point(225, 6);
             Dgv_Plan.Name = "Dgv_Plan";
-            Dgv_Plan.Size = new Size(563, 432);
+            Dgv_Plan.Size = new Size(865, 432);
             Dgv_Plan.TabIndex = 3;
+            Dgv_Plan.CellDoubleClick += Dgv_Plan_CellDoubleClick;
+            Dgv_Plan.CellValueChanged += Dgv_Plan_CellValueChanged;
             // 
             // Gbox
             // 
-            Gbox.Controls.Add(label2);
             Gbox.Controls.Add(Btn_Guardar);
             Gbox.Controls.Add(Cbox_Platillo);
             Gbox.Controls.Add(label6);
@@ -93,7 +93,6 @@
             Gbox.Controls.Add(Lbl_papu);
             Gbox.Controls.Add(Lbl_carbos);
             Gbox.Controls.Add(Lbl_Calorias);
-            Gbox.Controls.Add(comboBox1);
             Gbox.Location = new Point(12, 45);
             Gbox.Name = "Gbox";
             Gbox.Size = new Size(200, 393);
@@ -109,6 +108,7 @@
             Btn_Guardar.TabIndex = 5;
             Btn_Guardar.Text = "Guardar";
             Btn_Guardar.UseVisualStyleBackColor = true;
+            Btn_Guardar.Click += Btn_Guardar_Click;
             // 
             // Cbox_Platillo
             // 
@@ -118,6 +118,7 @@
             Cbox_Platillo.Name = "Cbox_Platillo";
             Cbox_Platillo.Size = new Size(188, 29);
             Cbox_Platillo.TabIndex = 6;
+            Cbox_Platillo.SelectedIndexChanged += Cbox_Platillo_SelectedIndexChanged;
             // 
             // label6
             // 
@@ -169,30 +170,11 @@
             Lbl_Calorias.TabIndex = 1;
             Lbl_Calorias.Text = "Calorias:";
             // 
-            // comboBox1
-            // 
-            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(6, 82);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(188, 29);
-            comboBox1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(6, 19);
-            label2.Name = "label2";
-            label2.Size = new Size(68, 21);
-            label2.TabIndex = 7;
-            label2.Text = "Nombre";
-            // 
             // PlanNutricional
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1102, 450);
             Controls.Add(Gbox);
             Controls.Add(Dgv_Plan);
             Controls.Add(Btn_Cargar);
@@ -222,7 +204,5 @@
         private Label Lbl_papu;
         private Label Lbl_carbos;
         private Label Lbl_Calorias;
-        private ComboBox comboBox1;
-        private Label label2;
     }
 }

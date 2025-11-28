@@ -44,9 +44,9 @@ namespace CapaDatos
                             IdPlatillo = Convert.ToInt32(dr["IdPlatillo"]),
                             Nombre = dr["Nombre"].ToString(),
                             Calorias = Convert.ToInt32(dr["Calorias"]),
-                            Carbohidratos = Convert.ToDouble(dr["Carbohidratos"]),
-                            Grasas = Convert.ToDouble(dr["Grasas"]),
-                            Proteinas = Convert.ToDouble(dr["Proteinas"])
+                            Carbohidratos = Convert.ToDecimal(dr["Carbohidratos"]),
+                            Grasas = Convert.ToDecimal(dr["Grasas"]),
+                            Proteinas = Convert.ToDecimal(dr["Proteinas"])
                         };
 
                         lista.Add(p);

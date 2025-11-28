@@ -15,7 +15,7 @@ namespace CapaDatos
         {
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString =
-                "Server=localhost\\SQLEXPRESS;" +
+                "Server=localhost;" +
                 "Database=HealthGym;" +
                 "Integrated Security=True;" +
                 "TrustServerCertificate=True;";

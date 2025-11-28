@@ -175,7 +175,7 @@ namespace HealthGym
             int objetivo = CalcularObjetivoCalorico();
             labelCalObje.Text = objetivo > 0 ? objetivo.ToString() : "-";
         }
-        //Registrar evaluación nutricional
+        //Registrar evaluación 
         private void btnRegistar_Click_1(object sender, EventArgs e)
         {
             try

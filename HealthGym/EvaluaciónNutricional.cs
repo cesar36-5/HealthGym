@@ -1,6 +1,7 @@
 ﻿using CapaEntidad;
 using CapaLogica;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace HealthGym
@@ -14,8 +15,10 @@ namespace HealthGym
             InitializeComponent();
             CargarNivelActividad();
             CargarFrecuencia();
-            txtPeso.TextChanged += (s, e) => CalcularIMC();
-            txtEstatura.TextChanged += (s, e) => CalcularIMC();
+
+            txtPeso.TextChanged += (s, e) => { CalcularIMC(); MostrarObjetivoCalorico(); };
+            txtEstatura.TextChanged += (s, e) => { CalcularIMC(); MostrarObjetivoCalorico(); };
+            cboNivel.SelectedIndexChanged += (s, e) => MostrarObjetivoCalorico();
         }
 
         private void CargarNivelActividad()
@@ -33,8 +36,6 @@ namespace HealthGym
             cboNivel.ValueMember = "Valor";
         }
 
-
-
         private void CargarFrecuencia()
         {
             var frecuencias = new List<object>();
@@ -48,8 +49,6 @@ namespace HealthGym
             cboFrecuencia.DisplayMember = "Nombre";
             cboFrecuencia.ValueMember = "Valor";
         }
-
-
 
         private void CalcularIMC()
         {
@@ -80,13 +79,13 @@ namespace HealthGym
 
             string nota;
             if (imc < 18.5f)
-                nota = "B";  // Bajo peso
+                nota = "B";
             else if (imc <= 24.9f)
-                nota = "A";  // Normal
+                nota = "A";
             else if (imc <= 29.9f)
-                nota = "B";  // Sobrepeso
+                nota = "B";
             else
-                nota = "C";  // Obesidad
+                nota = "C";
 
             labelCalNot.Text = nota;
         }
@@ -113,7 +112,10 @@ namespace HealthGym
                 int edad = DateTime.Now.Year - datos.FechaNacimiento.Year;
                 if (DateTime.Now.DayOfYear < datos.FechaNacimiento.DayOfYear)
                     edad--;
+
                 lbEda.Text = edad.ToString();
+
+                MostrarObjetivoCalorico();
             }
             catch (Exception ex)
             {
@@ -121,19 +123,58 @@ namespace HealthGym
             }
         }
 
-
         private char NivelActividadChar()
         {
             switch (cboNivel.SelectedIndex)
             {
-                case 0: return '0'; // Sedentario
-                case 1: return '1'; // Bajo
-                case 2: return '2'; // Medio
-                case 3: return '3'; // Intenso
+                case 0: return '0';
+                case 1: return '1';
+                case 2: return '2';
+                case 3: return '3';
                 default: return '0';
             }
         }
 
+        private int CalcularObjetivoCalorico()
+        {
+            if (!decimal.TryParse(txtPeso.Text, out decimal peso) ||
+                !decimal.TryParse(txtEstatura.Text, out decimal estatura) ||
+                !int.TryParse(lbEda.Text, out int edad) ||
+                peso <= 0 || estatura <= 0)
+            {
+                return 0;
+            }
+
+            decimal tallaCm = estatura > 3 ? estatura : estatura * 100;
+
+            string sexo = lbSex.Text;
+            double tmb;
+
+            if (sexo == "M")
+            {
+                tmb = (10 * (double)peso) + (6.25 * (double)tallaCm) - (5 * edad) + 5;
+            }
+            else
+            {
+                tmb = (10 * (double)peso) + (6.25 * (double)tallaCm) - (5 * edad) - 161;
+            }
+
+            double naf = 1.2;
+            switch (cboNivel.SelectedIndex)
+            {
+                case 1: naf = 1.375; break;
+                case 2: naf = 1.55; break;
+                case 3: naf = 1.725; break;
+            }
+
+            return (int)Math.Round(tmb * naf);
+        }
+
+        private void MostrarObjetivoCalorico()
+        {
+            int objetivo = CalcularObjetivoCalorico();
+            labelCalObje.Text = objetivo > 0 ? objetivo.ToString() : "-";
+        }
 
         private void btnRegistar_Click_1(object sender, EventArgs e)
         {
@@ -147,7 +188,7 @@ namespace HealthGym
 
                 if (LogEvaluacionNutricional.Instancia.EvaluacionYaRegistrada(IdMiembroSeleccionado))
                 {
-                    MessageBox.Show("Este miembro ya tiene una evaluación registrada. No se puede registrar otra.");
+                    MessageBox.Show("Este miembro ya tiene una evaluación registrada.");
                     return;
                 }
 
@@ -159,28 +200,21 @@ namespace HealthGym
                     string.IsNullOrWhiteSpace(txtCintura.Text) ||
                     string.IsNullOrWhiteSpace(txtPecho.Text))
                 {
-                    MessageBox.Show("Debe completar todos los campos antes de registrar.",
-                                    "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Debe completar todos los campos.");
                     return;
                 }
 
                 if (lbCalimc.Text == "-" || labelCalNot.Text == "-")
                 {
-                    MessageBox.Show("Debe ingresar peso y estatura para calcular IMC y Nota.");
-                    return;
-                }
-                if (!checkObjetivo.Checked)
-                {
-                    MessageBox.Show("Debe marcar el objetivo antes de registrar la evaluación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Debe calcular IMC y Nota.");
                     return;
                 }
 
-                decimal brazo = string.IsNullOrWhiteSpace(txtBrazo.Text) ? 0 : decimal.Parse(txtBrazo.Text);
-                decimal pierna = string.IsNullOrWhiteSpace(txtPierna.Text) ? 0 : decimal.Parse(txtPierna.Text);
-                decimal gluteo = string.IsNullOrWhiteSpace(txtGluteo.Text) ? 0 : decimal.Parse(txtGluteo.Text);
-                decimal cintura = string.IsNullOrWhiteSpace(txtCintura.Text) ? 0 : decimal.Parse(txtCintura.Text);
-                decimal pecho = string.IsNullOrWhiteSpace(txtPecho.Text) ? 0 : decimal.Parse(txtPecho.Text);
-
+                decimal brazo = decimal.Parse(txtBrazo.Text);
+                decimal pierna = decimal.Parse(txtPierna.Text);
+                decimal gluteo = decimal.Parse(txtGluteo.Text);
+                decimal cintura = decimal.Parse(txtCintura.Text);
+                decimal pecho = decimal.Parse(txtPecho.Text);
                 EntEvaluacionNutricional eva = new EntEvaluacionNutricional()
                 {
                     IdMiembro = IdMiembroSeleccionado,
@@ -194,8 +228,8 @@ namespace HealthGym
                     Pecho = pecho,
                     Nota = labelCalNot.Text,
                     NivelActividad = NivelActividadChar(),
-                    FrecuenciaActividad = cboFrecuencia.SelectedValue is int frecuencia ? frecuencia : 0,
-                    ObjetivoCalorico = checkObjetivo.Checked ? 1 : 0
+                    FrecuenciaActividad = cboFrecuencia.SelectedValue is int freq ? freq : 0,
+                    ObjetivoCalorico = CalcularObjetivoCalorico()
                 };
 
                 bool ok = LogEvaluacionNutricional.Instancia.RegistrarEvaluacion(eva);
@@ -203,20 +237,22 @@ namespace HealthGym
                 if (ok)
                     MessageBox.Show("Evaluación registrada correctamente.");
                 else
-                    MessageBox.Show("Evaluación no registrada.");
+                    MessageBox.Show("No se pudo registrar.");
+
                 LimpiarCampos();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR al registrar: " + ex.Message);
             }
-
         }
+        //Limpiar campos
         private void LimpiarCampos()
         {
             IdMiembroSeleccionado = 0;
             txtDNI.Clear();
             lbNom.Text = "-";
+            labelapellidos.Text = "-";
             lbSex.Text = "-";
             dtpFechaNacimiento.Value = DateTime.Now;
             lbEda.Text = "-";
@@ -224,6 +260,7 @@ namespace HealthGym
             txtEstatura.Clear();
             lbCalimc.Text = "-";
             labelCalNot.Text = "-";
+            labelCalObje.Text = "-";
             txtBrazo.Clear();
             txtPierna.Clear();
             txtGluteo.Clear();
@@ -231,8 +268,6 @@ namespace HealthGym
             txtPecho.Clear();
             cboNivel.SelectedIndex = 0;
             cboFrecuencia.SelectedIndex = 0;
-            checkObjetivo.Checked = false;
         }
     }
 }
-

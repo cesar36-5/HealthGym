@@ -30,7 +30,6 @@
         {
             dateTimePicker1 = new DateTimePicker();
             groupBox1 = new GroupBox();
-            checkObjetivo = new CheckBox();
             label4 = new Label();
             labelCalNot = new Label();
             button1 = new Button();
@@ -81,6 +80,7 @@
             dtpFechaNacimiento = new DateTimePicker();
             lbFechaNac = new Label();
             btnBuscar = new Button();
+            labelCalObje = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -94,7 +94,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(checkObjetivo);
+            groupBox1.Controls.Add(labelCalObje);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(labelCalNot);
             groupBox1.Controls.Add(button1);
@@ -135,16 +135,6 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos de la Evaluación Nutricional";
-            // 
-            // checkObjetivo
-            // 
-            checkObjetivo.AutoSize = true;
-            checkObjetivo.Location = new Point(300, 238);
-            checkObjetivo.Name = "checkObjetivo";
-            checkObjetivo.Size = new Size(85, 24);
-            checkObjetivo.TabIndex = 43;
-            checkObjetivo.Text = "Llenado";
-            checkObjetivo.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -596,6 +586,15 @@
             btnBuscar.UseVisualStyleBackColor = true;
             btnBuscar.Click += btnBuscar_Click;
             // 
+            // labelCalObje
+            // 
+            labelCalObje.AutoSize = true;
+            labelCalObje.Location = new Point(295, 240);
+            labelCalObje.Name = "labelCalObje";
+            labelCalObje.Size = new Size(88, 20);
+            labelCalObje.TabIndex = 43;
+            labelCalObje.Text = "ObjetivoCal";
+            // 
             // EvaluaciónNutricional
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -668,9 +667,9 @@
         private Label lbCalimc;
         private Label lbImc;
         private Label labelCalNot;
-        private CheckBox checkObjetivo;
         private Label label4;
         private Label labelapellidos;
         private Label label5;
+        private Label labelCalObje;
     }
 }

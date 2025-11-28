@@ -18,5 +18,13 @@
     <ProjectReference Include="..\CapaEntidad\CapaEntidad.csproj" />
 	  
   </ItemGroup>
+	
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\LENOVO\OneDrive\Imagens\OneDrive\Escritorio\HEALTHGYM\HealthGym\CapaLogica\.editorconfig" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <None Include="C:\Users\LENOVO\OneDrive\Imagens\OneDrive\Escritorio\HEALTHGYM\HealthGym\CapaLogica\.editorconfig" />
+  </ItemGroup>
 
 </Project>

@@ -59,15 +59,5 @@ namespace HealthGym.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Propuesta_gatitos {
-            get {
-                object obj = ResourceManager.GetObject("Propuesta gatitos", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

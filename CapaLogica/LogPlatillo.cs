@@ -27,7 +27,7 @@ namespace CapaLogica
         {
             return DatPlatillo.Instancia.InsertarPlatillo(plat);
         }
-        public bool EditAli(EntPlatillo plat)
+        public bool EditarPlatillo(EntPlatillo plat)
         {
             return DatPlatillo.Instancia.EditarPlatillo(plat);
         }

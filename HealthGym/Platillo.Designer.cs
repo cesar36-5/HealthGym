@@ -45,12 +45,20 @@
             dgvPlatillo = new DataGridView();
             btnAgregar = new Button();
             btnModificar = new Button();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
             gboPlatillo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPlatillo).BeginInit();
             SuspendLayout();
             // 
             // gboPlatillo
             // 
+            gboPlatillo.Controls.Add(label9);
+            gboPlatillo.Controls.Add(label8);
+            gboPlatillo.Controls.Add(label7);
+            gboPlatillo.Controls.Add(label6);
             gboPlatillo.Controls.Add(txtProteinas);
             gboPlatillo.Controls.Add(txtGrasas);
             gboPlatillo.Controls.Add(txtCarbohidratos);
@@ -72,28 +80,28 @@
             // 
             // txtProteinas
             // 
-            txtProteinas.Location = new Point(56, 335);
+            txtProteinas.Location = new Point(56, 326);
             txtProteinas.Name = "txtProteinas";
             txtProteinas.Size = new Size(213, 23);
             txtProteinas.TabIndex = 15;
             // 
             // txtGrasas
             // 
-            txtGrasas.Location = new Point(56, 269);
+            txtGrasas.Location = new Point(56, 266);
             txtGrasas.Name = "txtGrasas";
             txtGrasas.Size = new Size(213, 23);
             txtGrasas.TabIndex = 14;
             // 
             // txtCarbohidratos
             // 
-            txtCarbohidratos.Location = new Point(56, 202);
+            txtCarbohidratos.Location = new Point(56, 198);
             txtCarbohidratos.Name = "txtCarbohidratos";
             txtCarbohidratos.Size = new Size(213, 23);
             txtCarbohidratos.TabIndex = 13;
             // 
             // txtCalorias
             // 
-            txtCalorias.Location = new Point(56, 129);
+            txtCalorias.Location = new Point(56, 127);
             txtCalorias.Name = "txtCalorias";
             txtCalorias.Size = new Size(213, 23);
             txtCalorias.TabIndex = 12;
@@ -108,7 +116,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(26, 304);
+            label5.Location = new Point(26, 303);
             label5.Name = "label5";
             label5.Size = new Size(59, 15);
             label5.TabIndex = 10;
@@ -117,7 +125,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(26, 240);
+            label4.Location = new Point(26, 239);
             label4.Name = "label4";
             label4.Size = new Size(44, 15);
             label4.TabIndex = 9;
@@ -158,6 +166,7 @@
             btnEditar.TabIndex = 5;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnGuardar
             // 
@@ -167,6 +176,7 @@
             btnGuardar.TabIndex = 4;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // dgvPlatillo
             // 
@@ -175,6 +185,7 @@
             dgvPlatillo.Name = "dgvPlatillo";
             dgvPlatillo.Size = new Size(372, 426);
             dgvPlatillo.TabIndex = 1;
+            dgvPlatillo.CellDoubleClick += dgvPlatillo_CellDoubleClick;
             // 
             // btnAgregar
             // 
@@ -184,6 +195,7 @@
             btnAgregar.TabIndex = 2;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // btnModificar
             // 
@@ -193,6 +205,43 @@
             btnModificar.TabIndex = 3;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
+            btnModificar.Click += btnModificar_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(274, 131);
+            label6.Name = "label6";
+            label6.Size = new Size(31, 15);
+            label6.TabIndex = 16;
+            label6.Text = "kcal.";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(274, 202);
+            label7.Name = "label7";
+            label7.Size = new Size(17, 15);
+            label7.TabIndex = 17;
+            label7.Text = "g.";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(274, 270);
+            label8.Name = "label8";
+            label8.Size = new Size(17, 15);
+            label8.TabIndex = 18;
+            label8.Text = "g.";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(274, 331);
+            label9.Name = "label9";
+            label9.Size = new Size(17, 15);
+            label9.TabIndex = 19;
+            label9.Text = "g.";
             // 
             // Platillo
             // 
@@ -230,5 +279,9 @@
         private Label label3;
         private Label label2;
         private Label label1;
+        private Label label6;
+        private Label label9;
+        private Label label8;
+        private Label label7;
     }
 }

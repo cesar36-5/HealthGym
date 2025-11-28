@@ -15,12 +15,10 @@ namespace CapaDatos
         {
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString =
-                "Server=UTSILAB402;" +
+                "Server=localhost\\SQLEXPRESS;" +
                 "Database=HealthGym;" +
-                "User Id=sa;" +
-                "Password=12345678;" +
-                "TrustServerCertificate=True;" +
-                "Encrypt=False;";
+                "Integrated Security=True;" +
+                "TrustServerCertificate=True;";
 
             return cn;
         }

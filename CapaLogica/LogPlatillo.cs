@@ -11,8 +11,8 @@ namespace CapaLogica
     public class LogPlatillo
     {
         #region Singleton
-        private static readonly EntPlatillo _instancia = new EntPlatillo();
-        public static EntPlatillo Instancia
+        private static readonly LogPlatillo _instancia = new LogPlatillo();
+        public static LogPlatillo Instancia
         {
             get { return _instancia; }
         }
@@ -27,7 +27,7 @@ namespace CapaLogica
         {
             return DatPlatillo.Instancia.InsertarPlatillo(plat);
         }
-        public bool EditAli(EntPlatillo plat)
+        public bool EditarPlatillo(EntPlatillo plat)
         {
             return DatPlatillo.Instancia.EditarPlatillo(plat);
         }

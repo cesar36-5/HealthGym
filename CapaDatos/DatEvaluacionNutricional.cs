@@ -60,7 +60,7 @@ namespace CapaDatos
                 return count > 0;
             }
         }
-        //Buscar Miembro por DNI
+        //Buscar Miembro 
         public EntEvaluacionNutricional? BuscarPorDNI(string dni)
         {
             if (string.IsNullOrWhiteSpace(dni))

@@ -95,10 +95,10 @@ namespace HealthGym.Consultas
         {
             switch (valor)
             {
-                case '1': return "Sedentario";
-                case '2': return "Bajo";
-                case '3': return "Medio";
-                case '4': return "Intenso";
+                case '0': return "Sedentario";
+                case '1': return "Bajo";
+                case '2': return "Medio";
+                case '3': return "Intenso";
                 default: return "Desconocido";
             }
         }
@@ -106,10 +106,10 @@ namespace HealthGym.Consultas
         {
             switch (valor)
             {
-                case "1": return "Sedentario";
-                case "2": return "Bajo";
-                case "3": return "Medio";
-                case "4": return "Intenso";
+                case "0": return "Sedentario";
+                case "1": return "Bajo";
+                case "2": return "Medio";
+                case "3": return "Intenso";
                 default: return "Desconocido";
             }
         }

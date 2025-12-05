@@ -17,10 +17,8 @@ namespace CapaDatos
             cn.ConnectionString =
                 "Server=localhost;" +
                 "Database=HealthGym;" +
-                "User Id=sa;" +
-                "Password=12345678;" +
-                "TrustServerCertificate=True;" +
-                "Encrypt=False;";
+                "Integrated Security=True;" +
+                "TrustServerCertificate=True;";
 
             return cn;
         }

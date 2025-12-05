@@ -49,10 +49,11 @@
             // dgvObjetivo
             // 
             dgvObjetivo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvObjetivo.Location = new Point(26, 12);
+            dgvObjetivo.Location = new Point(16, 12);
             dgvObjetivo.Name = "dgvObjetivo";
-            dgvObjetivo.Size = new Size(262, 426);
+            dgvObjetivo.Size = new Size(276, 426);
             dgvObjetivo.TabIndex = 0;
+            dgvObjetivo.CellDoubleClick += dgvObjetivo_CellDoubleClick;
             // 
             // gboObjetivo
             // 
@@ -82,6 +83,7 @@
             btnEliminar.TabIndex = 12;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnEditar
             // 
@@ -91,6 +93,7 @@
             btnEditar.TabIndex = 11;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnGuardar
             // 
@@ -100,6 +103,7 @@
             btnGuardar.TabIndex = 8;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // label5
             // 
@@ -176,6 +180,7 @@
             btnBuscar.TabIndex = 4;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // Objetivo
             // 

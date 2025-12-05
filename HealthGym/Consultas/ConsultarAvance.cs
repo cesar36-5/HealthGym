@@ -39,12 +39,103 @@ namespace HealthGym.Consultas
                     throw new Exception("No se encontro una evaluacion");
                 }
 
+                List<EntMonitoreo> monitoreos = LogMonitoreo.Instancia.BuscarMonitoreos(Tbox_DNI.Text);
+                EntEvaluacionNutricional evaluacion = LogEvaluacionNutricional.Instancia.BuscarEvXDNI(Tbox_DNI.Text);
+
+                DGV.Rows.Clear();
+
+                foreach (var m in monitoreos)
+                {
+                    DGV.Rows.Add(
+                        m.Fecha,
+                        m.Estatura,
+                        m.Peso,
+                        m.IMC,
+                        m.Brazo,
+                        m.Pierna,
+                        m.Gluteo,
+                        m.Cintura,
+                        m.Nota,
+                        m.ObjetivoCalorico,
+                        m.NivelActividad,
+                        m.FrecuenciaActividad
+                    );
+                }
+
+                if (evaluacion != null)
+                {
+                    DGV.Rows.Add(
+                        evaluacion.Fecha.ToString(),
+                        evaluacion.Estatura,
+                        evaluacion.Peso,
+                        evaluacion.IMC,
+                        evaluacion.Brazo,
+                        evaluacion.Pierna,
+                        evaluacion.Gluteo,
+                        evaluacion.Cintura,
+                        evaluacion.Nota,
+                        evaluacion.ObjetivoCalorico,
+                        ObtenerNombreNivelActividad(evaluacion.NivelActividad),
+                        ObtenerNombreFrecuencia(evaluacion.FrecuenciaActividad)
+                    );
+                }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void DGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        public static string ObtenerNombreNivelActividad(char valor)
+        {
+            switch (valor)
+            {
+                case '1': return "Sedentario";
+                case '2': return "Bajo";
+                case '3': return "Medio";
+                case '4': return "Intenso";
+                default: return "Desconocido";
+            }
+        }
+        public static string ObtenerNombreNivelActividad(string valor)
+        {
+            switch (valor)
+            {
+                case "1": return "Sedentario";
+                case "2": return "Bajo";
+                case "3": return "Medio";
+                case "4": return "Intenso";
+                default: return "Desconocido";
+            }
+        }
+        public static string ObtenerNombreFrecuencia(int valor)
+        {
+            return $"{valor} días/semana";
+        }
+
+        private void ConsultarAvance_Load(object sender, EventArgs e)
+        {
+            DGV.AutoGenerateColumns = false;
+            DGV.Columns.Clear();
+
+            DGV.Columns.Add("Fecha", "Fecha");
+            DGV.Columns.Add("Estatura", "Estatura");
+            DGV.Columns.Add("Peso", "Peso");
+            DGV.Columns.Add("IMC", "IMC");
+            DGV.Columns.Add("Brazo", "Brazo");
+            DGV.Columns.Add("Pierna", "Pierna");
+            DGV.Columns.Add("Gluteo", "Glúteo");
+            DGV.Columns.Add("Cintura", "Cintura");
+            DGV.Columns.Add("Nota", "Nota");
+            DGV.Columns.Add("ObjetivoCalorico", "Objetivo Calórico");
+            DGV.Columns.Add("NivelActividad", "Nivel Actividad");
+            DGV.Columns.Add("FrecuenciaActividad", "Frecuencia Actividad");
+
         }
     }
 }

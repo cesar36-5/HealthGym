@@ -20,5 +20,6 @@ namespace CapaEntidad
         public int ObjetivoCalorico { get; set; }
         public string NivelActividad { get; set; }
         public int FrecuenciaActividad { get; set; }
+        public DateTime? Fecha { get; set; }
     }
 }

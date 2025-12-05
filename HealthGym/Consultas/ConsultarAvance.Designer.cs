@@ -60,6 +60,7 @@
             DGV.Name = "DGV";
             DGV.Size = new Size(776, 391);
             DGV.TabIndex = 2;
+            DGV.CellContentClick += DGV_CellContentClick;
             // 
             // ConsultarAvance
             // 
@@ -71,6 +72,7 @@
             Controls.Add(Tbox_DNI);
             Name = "ConsultarAvance";
             Text = "ConsultarAvance";
+            Load += ConsultarAvance_Load;
             ((System.ComponentModel.ISupportInitialize)DGV).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -58,5 +58,17 @@ namespace HealthGym
             Bitacora b = new Bitacora();
             b.Show();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Objetivo m = new Objetivo();
+            m.Show();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Consultas.ConsultarAvance m = new Consultas.ConsultarAvance();
+            m.Show();
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace HealthGym
         decimal gluteo = 0;
         decimal cintura = 0;
         decimal pecho = 0;
+
+        bool canSave = false;
         public Bitacora()
         {
             InitializeComponent();
@@ -212,6 +214,8 @@ namespace HealthGym
                     notaFinal = "C";
 
                 label1.Text = notaFinal;
+
+                canSave = true;
             }
             catch (Exception ex)
             {
@@ -223,7 +227,10 @@ namespace HealthGym
         {
             try
             {
+                if (!canSave)
+                {
 
+                }
                 if (string.IsNullOrWhiteSpace(txtPeso.Text) ||
                     string.IsNullOrWhiteSpace(txtEstatura.Text) ||
                     string.IsNullOrWhiteSpace(txtBrazo.Text) ||
@@ -266,10 +273,14 @@ namespace HealthGym
                 bool ok = LogMonitoreo.Instancia.InsertarMonitoreo(miembro.Id, eva);
 
                 if (!ok)
+                {
                     MessageBox.Show("Bitacora registrada correctamente.");
+                    canSave = false;
+                }
                 else
-                    MessageBox.Show("No se pudo registrar.");
-
+                {
+                    throw new Exception("No se pudo registrar.");
+                }
             }
             catch (Exception ex)
             {

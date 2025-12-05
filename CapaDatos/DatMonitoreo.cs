@@ -61,6 +61,54 @@ namespace CapaDatos
                 throw new Exception("Error al obtener monitoreo reciente: " + ex.Message);
             }
         }
+        public List<EntMonitoreo> BuscarMonitoreosPorDNI(string dni)
+        {
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    SqlCommand cmd = new SqlCommand("sp_BuscarMonitoreos", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@DNI", dni);
+
+                    cn.Open();
+
+                    List<EntMonitoreo> lista = new List<EntMonitoreo>();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            EntMonitoreo m = new EntMonitoreo
+                            {
+                                Estatura = dr.GetDecimal(dr.GetOrdinal("Estatura")),
+                                Peso = dr.GetDecimal(dr.GetOrdinal("Peso")),
+                                IMC = Convert.ToSingle(dr["IMC"]),
+                                Brazo = dr.GetDecimal(dr.GetOrdinal("Brazo")),
+                                Pierna = dr.GetDecimal(dr.GetOrdinal("Pierna")),
+                                Gluteo = dr.GetDecimal(dr.GetOrdinal("Gluteo")),
+                                Cintura = dr.GetDecimal(dr.GetOrdinal("Cintura")),
+                                Pecho = dr.GetDecimal(dr.GetOrdinal("Pecho")),
+                                Nota = dr["Nota"].ToString(),
+                                ObjetivoCalorico = Convert.ToInt32(dr["ObjetivoCalorico"]),
+                                NivelActividad = dr["NivelActividad"].ToString(),
+                                FrecuenciaActividad = Convert.ToInt32(dr["FrecuenciaActividad"]),
+                                Fecha = Convert.ToDateTime(dr["Fecha"])
+                            };
+
+                            lista.Add(m);
+                        }
+                    }
+
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar monitoreos por DNI: " + ex.Message);
+            }
+        }
 
         public string EvaluarObjetivoMusculo(int idMiembro, int idMusculo, decimal tamanoActual)
         {

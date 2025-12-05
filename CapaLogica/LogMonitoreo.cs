@@ -29,5 +29,10 @@ namespace CapaLogica
         {
             return DatMonitoreo.Instancia.InsertarMonitoreo(id, obj);
         }
+
+        public List<EntMonitoreo> BuscarMonitoreos(string dni)
+        {
+            return DatMonitoreo.Instancia.BuscarMonitoreosPorDNI(dni);
+        }
     }
 }

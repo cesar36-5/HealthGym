@@ -30,5 +30,6 @@ namespace CapaEntidad
         public string Sexo { get; set; } = string.Empty;
         public int Edad { get; set; }             
         public DateTime FechaNacimiento { get; set; } 
+        public DateTime? Fecha { get; set; }
     }
 }

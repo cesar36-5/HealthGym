@@ -34,7 +34,6 @@ namespace HealthGym
         private void LimpiarCampos()
         {
             txtNombre.Text = "";
-            txtNombre.Enabled = false;
             btnModificar.Enabled = false;
         }
 

@@ -22,6 +22,7 @@ namespace HealthGym
             Limpiar();
             gboPlatillo.Enabled = false;
             btnEditar.Enabled = false;
+            comboBox1.SelectedIndex = 0;
         }
         private void Limpiar()
         {
@@ -30,6 +31,7 @@ namespace HealthGym
             txtCarbohidratos.Text = "";
             txtGrasas.Text = "";
             txtProteinas.Text = "";
+            comboBox1.SelectedIndex = 0;
         }
 
         private void listarPlat()
@@ -49,10 +51,13 @@ namespace HealthGym
             {
                 EntPlatillo a = new EntPlatillo();
                 a.Nombre = txtNombre.Text;
-                a.Calorias = double.Parse(txtCalorias.Text);
-                a.Carbohidratos = double.Parse(txtCarbohidratos.Text);
-                a.Grasas = double.Parse(txtGrasas.Text);
-                a.Proteinas = double.Parse(txtProteinas.Text);
+                a.Calorias = int.Parse(txtCalorias.Text);
+                a.Carbohidratos = decimal.Parse(txtCarbohidratos.Text);
+                a.Grasas = decimal.Parse(txtGrasas.Text);
+                a.Proteinas = decimal.Parse(txtProteinas.Text);
+
+                // 👉 Agregar la categoría del ComboBox
+                a.Categoria = comboBox1.SelectedItem.ToString();
 
                 bool resultado = LogPlatillo.Instancia.InserPlatillo(a);
                 if (resultado)
@@ -64,6 +69,7 @@ namespace HealthGym
             {
                 MessageBox.Show("ERROR al agregar valores" + ex);
             }
+
             Limpiar();
             gboPlatillo.Enabled = false;
             listarPlat();
@@ -84,7 +90,8 @@ namespace HealthGym
             txtCalorias.Text = filaActual.Cells[2].Value.ToString();
             txtCarbohidratos.Text = filaActual.Cells[3].Value.ToString();
             txtGrasas.Text = filaActual.Cells[4].Value.ToString();
-            txtGrasas.Text = filaActual.Cells[5].Value.ToString();
+            txtProteinas.Text = filaActual.Cells[5].Value.ToString();
+            comboBox1.SelectedItem = filaActual.Cells[6].Value.ToString();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -94,10 +101,11 @@ namespace HealthGym
                 EntPlatillo a = new EntPlatillo();
                 a.IdPlatillo = Convert.ToInt32(dgvPlatillo.CurrentRow.Cells["IdPlatillo"].Value);
                 a.Nombre = txtNombre.Text;
-                a.Calorias = double.Parse(txtCalorias.Text);
-                a.Carbohidratos = double.Parse(txtCarbohidratos.Text);
-                a.Grasas = double.Parse(txtGrasas.Text);
-                a.Proteinas = double.Parse(txtProteinas.Text);
+                a.Calorias = int.Parse(txtCalorias.Text);
+                a.Carbohidratos = decimal.Parse(txtCarbohidratos.Text);
+                a.Grasas = decimal.Parse(txtGrasas.Text);
+                a.Proteinas = decimal.Parse(txtProteinas.Text);
+                a.Categoria = comboBox1.SelectedItem.ToString();
 
                 bool resultado = LogPlatillo.Instancia.EditarPlatillo(a);
                 if (resultado)

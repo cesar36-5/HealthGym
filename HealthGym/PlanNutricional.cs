@@ -31,6 +31,19 @@ namespace HealthGym
         {
             InitializeComponent();
         }
+        private string ObtenerCategoriaPorFila(int fila)
+        {
+            switch (fila)
+            {
+                case 0: return "Desayuno";
+                case 1: return "Media Mañana";
+                case 2: return "Almuerzo";
+                case 3: return "Media Tarde";
+                case 4: return "Cena";
+                default: return "";
+            }
+        }
+
 
         private void PlanNutricional_Load(object sender, EventArgs e)
         {
@@ -177,17 +190,31 @@ namespace HealthGym
             celdaFilaSeleccionada = e.RowIndex;
             celdaColSeleccionada = e.ColumnIndex;
 
+            // 1️⃣ Obtener categoría según la fila
+            string categoria = ObtenerCategoriaPorFila(e.RowIndex);
+
+            // 2️⃣ Filtrar lista
+            var filtrados = platillos
+                .Where(p => p.Categoria != null && p.Categoria.Equals(categoria, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            // 3️⃣ Asignar DataSource filtrado
+            Cbox_Platillo.DataSource = filtrados;
+            Cbox_Platillo.DisplayMember = "Nombre";
+            Cbox_Platillo.ValueMember = "IdPlatillo";
+
             string nombre = Dgv_Plan.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
 
             if (!string.IsNullOrEmpty(nombre))
             {
-                Cbox_Platillo.SelectedItem = platillos.FirstOrDefault(p => p.Nombre == nombre);
+                Cbox_Platillo.SelectedItem = filtrados.FirstOrDefault(p => p.Nombre == nombre);
             }
             else
             {
                 Cbox_Platillo.SelectedIndex = -1;
             }
         }
+
 
         private void Cbox_Platillo_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -14,5 +14,6 @@ namespace CapaEntidad
         public decimal Carbohidratos { get; set; }
         public decimal Grasas { get; set; }
         public decimal Proteinas { get; set; }
+        public string Categoria { get; set; }
     }
 }

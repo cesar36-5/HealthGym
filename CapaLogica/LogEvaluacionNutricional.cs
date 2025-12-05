@@ -32,6 +32,11 @@ namespace CapaLogica
             return DatEvaluacionNutricional.Instancia.ExisteEvaluacionPorMiembro(idMiembro);
         }
 
+        public EntEvaluacionNutricional BuscarEvaluacion(string dni)
+        {
+            return DatEvaluacionNutricional.Instancia.BuscarPorDNI(dni);
+        }
+
         #endregion métodos
     }
 }

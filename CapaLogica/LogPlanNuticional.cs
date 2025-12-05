@@ -27,5 +27,15 @@ namespace CapaLogica
         {
             return DatPlanNutricional.Instancia.InsertarDetallesPlan(lista);
         }
+
+        public List<EntPlanNutricional> ListarPlanesDNI(string dni)
+        {
+            return DatPlanNutricional.Instancia.ListarPlanesPorDNI(dni);
+        }
+
+        public List<EntDetallePlan> ListarDetalles(int id)
+        {
+            return DatPlanNutricional.Instancia.ListarPlanDetallePorIdPlan(id);
+        }
     }
 }

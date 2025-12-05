@@ -57,7 +57,6 @@ namespace HealthGym
                 estatura <= 0 || peso <= 0)
             {
                 lbCalimc.Text = "-";
-                labelCalNot.Text = "-";
                 return;
             }
 
@@ -66,7 +65,6 @@ namespace HealthGym
             decimal imcFinal = Math.Round(imc, 2);
 
             lbCalimc.Text = imcFinal.ToString("0.00");
-            CalcularNota();
         }
 
         private void CalcularNota()

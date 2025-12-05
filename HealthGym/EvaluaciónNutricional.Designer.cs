@@ -33,7 +33,6 @@
             labelCalObje = new Label();
             label4 = new Label();
             labelCalNot = new Label();
-            button1 = new Button();
             lbCalimc = new Label();
             lbImc = new Label();
             label28 = new Label();
@@ -98,7 +97,6 @@
             groupBox1.Controls.Add(labelCalObje);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(labelCalNot);
-            groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(lbCalimc);
             groupBox1.Controls.Add(lbImc);
             groupBox1.Controls.Add(label28);
@@ -165,16 +163,6 @@
             labelCalNot.Size = new Size(38, 15);
             labelCalNot.TabIndex = 41;
             labelCalNot.Text = "notita";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(16, 210);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(82, 22);
-            button1.TabIndex = 40;
-            button1.Text = "Objetivo";
-            button1.UseVisualStyleBackColor = true;
             // 
             // lbCalimc
             // 
@@ -677,7 +665,6 @@
         private TextBox txtPecho;
         private Label lbNota;
         private Button btnRegistar;
-        private Button button1;
         private Label label28;
         private Label label27;
         private Label label26;

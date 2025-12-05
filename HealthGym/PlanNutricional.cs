@@ -215,7 +215,6 @@ namespace HealthGym
             }
         }
 
-
         private void Cbox_Platillo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (celdaFilaSeleccionada < 0 || celdaColSeleccionada < 0)

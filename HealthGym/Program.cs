@@ -10,7 +10,7 @@ namespace HealthGym
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new PlanNutricional());
+            Application.Run(new Menu());
         }
     }
 }

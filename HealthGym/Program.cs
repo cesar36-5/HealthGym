@@ -9,7 +9,7 @@ namespace HealthGym
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Platillo());
+            Application.Run(new Objetivo());
         }
     }
 }

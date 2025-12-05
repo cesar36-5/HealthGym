@@ -20,5 +20,7 @@ namespace CapaEntidad
         public decimal Pecho { get; set; }
         public string? Nota { get; set; }
         public int ObjetivoCalorico { get; set; }
+        public string NivelActividad { get; set; }
+        public int FrecuenciaActividad { get; set; }
     }
 }

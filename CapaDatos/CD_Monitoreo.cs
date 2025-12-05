@@ -1,4 +1,5 @@
-﻿using CapaEntidad;
+﻿using CapaDatos;
+using CapaEntidad;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace CapaDatos
 
             try
             {
-                using (SqlConnection oconexion = Conexion.Conectar())
+                using (SqlConnection oconexion = new Conexion().Conectar())
                 {
                     SqlCommand cmd = new SqlCommand("sp_RegistrarMonitoreo", oconexion);
                     cmd.Parameters.AddWithValue("IdMiembro", obj.oMiembro.IdMiembro);
@@ -33,6 +34,8 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("Pecho", obj.Pecho);
                     cmd.Parameters.AddWithValue("Nota", obj.Nota ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("ObjetivoCalorico", obj.ObjetivoCalorico);
+                    cmd.Parameters.AddWithValue("NivelActividad", obj.NivelActividad);
+                    cmd.Parameters.AddWithValue("FrecuenciaActividad", obj.FrecuenciaActividad);
 
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -55,7 +58,7 @@ namespace CapaDatos
             List<Monitoreo> lista = new List<Monitoreo>();
             try
             {
-                using (SqlConnection oconexion = Conexion.Conectar())
+                using (SqlConnection oconexion = new Conexion().Conectar())
                 {
                     SqlCommand cmd = new SqlCommand("sp_ObtenerMonitoreoPorMiembro", oconexion);
                     cmd.Parameters.AddWithValue("IdMiembro", IdMiembro);

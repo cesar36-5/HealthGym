@@ -18,143 +18,262 @@ namespace HealthGym.Monitoreo
     public partial class Monitoreo : Form
     {
         private CapaEntidad.Miembro? miembroActual;
+
         public Monitoreo()
         {
             InitializeComponent();
+            CargarComboActividad();
             InicializarControlesMonitoreo(false);
-
         }
+
+        private void CargarComboActividad()
+        {
+            
+            cboNivelActividad.Items.Clear();
+            cboNivelActividad.Items.Add("Sedentario");
+            cboNivelActividad.Items.Add("Bajo");
+            cboNivelActividad.Items.Add("Medio");
+            cboNivelActividad.Items.Add("Intenso");
+            cboNivelActividad.SelectedIndex = 0; 
+
+            
+            cboNivelActividad.SelectedIndexChanged += new EventHandler(cboNivelActividad_SelectedIndexChanged);
+        }
+
         private void InicializarControlesMonitoreo(bool enabled)
         {
             txtPeso.Enabled = enabled;
             txtEstatura.Enabled = enabled;
+            btnCalcularIMC.Enabled = enabled;
+
+            // Medidas
             txtBrazo.Enabled = enabled;
             txtPierna.Enabled = enabled;
             txtGluteo.Enabled = enabled;
             txtCintura.Enabled = enabled;
             txtPecho.Enabled = enabled;
-            txtObjetivoCalorico.Enabled = enabled;
-            btnBuscar.Enabled = enabled;
 
-            txtPeso.Text = txtEstatura.Text = txtBrazo.Text = txtPierna.Text = txtGluteo.Text = txtCintura.Text = txtPecho.Text = string.Empty;
-            txtObjetivoCalorico.Text = "0";
-            lblIMC.Text = "IMC Calculado: 0.00";
-            lblNota.Text = "Calificación: N/A";
-            lblRecomendacion.Text = "Recomendación: En espera";
-            dgvHistorial.DataSource = null;
+           
+            txtObjetivoCalorico.Enabled = false; 
+            cboNivelActividad.Enabled = enabled;
+
+            if (!enabled)
+            {
+                txtPeso.Text = txtEstatura.Text = txtBrazo.Text = txtPierna.Text = txtGluteo.Text = txtCintura.Text = txtPecho.Text = string.Empty;
+                txtObjetivoCalorico.Text = "";
+                lblIMC.Text = "IMC Calculado: 0.00";
+                lblNota.Text = "Calificación: N/A";
+                lblNota.ForeColor = Color.Black;
+                lblRecomendacion.Text = "Recomendación: En espera";
+                dgvHistorial.DataSource = null;
+            }
         }
+
         private void btnBuscarMiembro_Click(object sender, EventArgs e)
         {
             string dni = txtDNI.Text.Trim();
-
             if (string.IsNullOrEmpty(dni))
             {
-                MessageBox.Show("Por favor, ingrese un DNI válido.", "Advertencia",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, ingrese un DNI válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string mensajeMiembro = string.Empty;
-            miembroActual = new CN_Miembro().BuscarPorDNI(dni, out mensajeMiembro);
+
+            string mensaje = "";
+            miembroActual = new CN_Miembro().BuscarPorDNI(dni, out mensaje);
 
             if (miembroActual != null)
             {
-                InicializarControlesMonitoreo(true);
+                CN_Monitoreo logica = new CN_Monitoreo();
+                var historial = logica.Listar(miembroActual.IdMiembro);
 
-                CargarHistorial(miembroActual.IdMiembro);
-
-                MessageBox.Show("Miembro encontrado. Ahora puede ingresar los datos de monitoreo.",
-                                "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (historial.Count > 0)
+                {
+                    InicializarControlesMonitoreo(true);
+                    CargarHistorial(historial);
+                    MessageBox.Show($"Miembro encontrado: {miembroActual.Nombres}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                  
+                    bool existeEvaluacion = false;
+                    if (existeEvaluacion)
+                    {
+                        InicializarControlesMonitoreo(true);
+                    }
+                    else
+                    {
+                        InicializarControlesMonitoreo(false);
+                        MessageBox.Show("No hay evaluación nutricional previa. Se requiere una evaluación inicial.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
             else
             {
-                InicializarControlesMonitoreo(false);
-                MessageBox.Show("Miembro no encontrado. Por favor, verifique el DNI ingresado.",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Miembro no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         
-           
-
-        private void txtPeso_TextChanged(object sender, EventArgs e)
+        private void btnCalcularIMC_Click(object sender, EventArgs e)
         {
-            CalcularIMC();
+            if (ValidarEntradasCalculo())
+            {
+               
+                CalcularIMC();
 
+                CalcularObjetivoCalorico();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese Peso y Estatura válidos para calcular.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void txtEstatura_TextChanged(object sender, EventArgs e)
+       
+        private void cboNivelActividad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CalcularIMC();
+            if (ValidarEntradasCalculo())
+            {
+                CalcularObjetivoCalorico();
+            }
         }
+
+        private bool ValidarEntradasCalculo()
+        {
+            return decimal.TryParse(txtPeso.Text, out decimal p) && p > 0 &&
+                   decimal.TryParse(txtEstatura.Text, out decimal es) && es > 0;
+        }
+
         private void CalcularIMC()
         {
-            if (decimal.TryParse(txtPeso.Text, out decimal peso) &&
-                decimal.TryParse(txtEstatura.Text, out decimal estatura) && estatura > 0)
+            decimal peso = decimal.Parse(txtPeso.Text);
+            decimal estatura = decimal.Parse(txtEstatura.Text);
+
+            double imc = Math.Round((double)peso / ((double)estatura * (double)estatura), 2);
+            lblIMC.Text = "IMC Calculado: " + imc.ToString();
+
+           
+            string nota = "";
+            Color colorNota = Color.Black;
+            string recomendacion = "";
+
+            if (imc >= 18.5 && imc <= 24.9)
             {
-                double imc = Math.Round((double)peso / ((double)estatura * (double)estatura), 2);
-                lblIMC.Text = "IMC Calculado: " + imc.ToString();
+                nota = "A"; colorNota = Color.Green;
+                recomendacion = "Excelente. Mantener rutina actual.";
+            }
+            else if (imc >= 25 && imc <= 29.9)
+            {
+                nota = "B"; colorNota = Color.Orange;
+                recomendacion = "Aumentar cardio y revisar ingesta de carbohidratos.";
             }
             else
             {
-                lblIMC.Text = "IMC Calculado: 0.00";
+                nota = "C"; colorNota = Color.Red;
+                recomendacion = "Requiere plan estricto de déficit calórico.";
             }
-        }
-        private void CargarHistorial(int idMiembro)
-        {
-            List<CapaEntidad.Monitoreo> historial = new CN_Monitoreo().Listar(idMiembro);
-            dgvHistorial.DataSource = historial;
 
+            lblNota.Text = $"Calificación: {nota}";
+            lblNota.ForeColor = colorNota;
+            lblRecomendacion.Text = "Recomendación: " + recomendacion;
+        }
+
+        private void CalcularObjetivoCalorico()
+        {
+            if (miembroActual == null) return;
+
+            decimal peso = decimal.Parse(txtPeso.Text);
+            decimal estatura = decimal.Parse(txtEstatura.Text); 
+
+            int edad = DateTime.Now.Year - miembroActual.FechaNacimiento.Year;
+            if (DateTime.Now.DayOfYear < miembroActual.FechaNacimiento.DayOfYear) edad--;
+
+            // Fórmula Mifflin-St Jeor
+            // Hombres: (10 x peso kg) + (6.25 x altura cm) - (5 x edad) + 5
+            // Mujeres: (10 x peso kg) + (6.25 x altura cm) - (5 x edad) - 161
+
+            double alturaCm = (double)estatura * 100;
+            double pesoKg = (double)peso;
+            double tmb = (10 * pesoKg) + (6.25 * alturaCm) - (5 * edad);
+
+            if (miembroActual.Sexo == "M" || miembroActual.Sexo == "H") 
+                tmb += 5;
+            else
+                tmb -= 161; 
+
+            
+            double factorActividad = 1.2; 
+            string seleccion = cboNivelActividad.Text;
+
+            if (seleccion == "Bajo") factorActividad = 1.375;
+            else if (seleccion == "Medio") factorActividad = 1.55;
+            else if (seleccion == "Intenso") factorActividad = 1.725;
+
+            int caloriasDiarias = (int)(tmb * factorActividad);
+
+          
+            txtObjetivoCalorico.Text = caloriasDiarias.ToString();
+        }
+
+        private void CargarHistorial(List<CapaEntidad.Monitoreo> historial)
+        {
+            dgvHistorial.DataSource = null;
+            dgvHistorial.DataSource = historial;
             if (dgvHistorial.Columns.Contains("oMiembro")) dgvHistorial.Columns["oMiembro"].Visible = false;
-            if (dgvHistorial.Columns.Contains("IdMonitoreo")) dgvHistorial.Columns["IdMonitoreo"].Visible = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (miembroActual == null)
+            if (miembroActual == null) { MessageBox.Show("Busque un miembro primero.", "Advertencia"); return; }
+
+            if (string.IsNullOrEmpty(txtPeso.Text) || string.IsNullOrEmpty(txtEstatura.Text))
             {
-                MessageBox.Show("Debe buscar y seleccionar un Miembro primero.", "Error de Guardado");
+                MessageBox.Show("Faltan datos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (!decimal.TryParse(txtPeso.Text, out decimal peso) || peso <= 0 ||
-                !decimal.TryParse(txtEstatura.Text, out decimal estatura) || estatura <= 0 ||
-                !int.TryParse(txtObjetivoCalorico.Text, out int objCalorico))
+            try
             {
-                MessageBox.Show("Ingrese Peso, Estatura y Objetivo Calórico válidos.", "Error de Validación");
-                return;
+              
+                string seleccion = cboNivelActividad.Text;
+                string charNivel = "M";
+                if (seleccion == "Sedentario" || seleccion == "Bajo") charNivel = "B";
+                else if (seleccion == "Intenso") charNivel = "A";
+
+                CapaEntidad.Monitoreo obj = new CapaEntidad.Monitoreo()
+                {
+                    oMiembro = miembroActual,
+                    Peso = decimal.Parse(txtPeso.Text),
+                    Estatura = decimal.Parse(txtEstatura.Text),
+                    Brazo = decimal.TryParse(txtBrazo.Text, out decimal b) ? b : 0,
+                    Pierna = decimal.TryParse(txtPierna.Text, out decimal p) ? p : 0,
+                    Gluteo = decimal.TryParse(txtGluteo.Text, out decimal g) ? g : 0,
+                    Cintura = decimal.TryParse(txtCintura.Text, out decimal c) ? c : 0,
+                    Pecho = decimal.TryParse(txtPecho.Text, out decimal pe) ? pe : 0,
+                    ObjetivoCalorico = int.TryParse(txtObjetivoCalorico.Text, out int cal) ? cal : 0,
+
+                    Nota = lblNota.Text.Replace("Calificación: ", ""), 
+                    NivelActividad = charNivel,
+                    FrecuenciaActividad = 3
+                };
+
+                string mensaje = "";
+                CN_Monitoreo logica = new CN_Monitoreo();
+                int id = logica.Registrar(obj, out mensaje);
+
+                if (id > 0)
+                {
+                    MessageBox.Show("Monitoreo guardado con éxito.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarHistorial(logica.Listar(miembroActual.IdMiembro));
+                }
+                else
+                {
+                    MessageBox.Show("Error al guardar: " + mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-
-            CapaEntidad.Monitoreo obj = new CapaEntidad.Monitoreo()
+            catch (Exception ex)
             {
-                oMiembro = miembroActual,
-                Estatura = estatura,
-                Peso = peso,
-                Brazo = decimal.TryParse(txtBrazo.Text, out decimal brazo) ? brazo : 0,
-                Pierna = decimal.TryParse(txtPierna.Text, out decimal pierna) ? pierna : 0,
-                Cintura = decimal.TryParse(txtCintura.Text, out decimal cintura) ? cintura : 0,
-                Gluteo = decimal.TryParse(txtGluteo.Text, out decimal gluteo) ? gluteo : 0,
-                Pecho = decimal.TryParse(txtPecho.Text, out decimal pecho) ? pecho : 0,
-                ObjetivoCalorico = objCalorico,
-            };
-
-            string mensaje = string.Empty;
-            CN_Monitoreo cnMonitoreo = new CN_Monitoreo();
-
-            int idGenerado = cnMonitoreo.Registrar(obj, out mensaje);
-
-            if (idGenerado > 0)
-            {
-                ResultadoProgreso resultado = cnMonitoreo.EvaluarProgreso(obj);
-
-                lblNota.Text = $"Calificación: {resultado.Nota}";
-                lblRecomendacion.Text = $"Recomendación: {resultado.Mensaje}";
-
-                MessageBox.Show($"Monitoreo registrado con éxito.", "Guardado");
-                CargarHistorial(miembroActual.IdMiembro);
-                InicializarControlesMonitoreo(true);
-            }
-            else
-            {
-                MessageBox.Show("Error al registrar: " + mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

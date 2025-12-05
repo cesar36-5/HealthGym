@@ -1,3 +1,4 @@
+using HealthGym;
 namespace HealthGym
 {
     internal static class Program
@@ -9,7 +10,7 @@ namespace HealthGym
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Objetivo());
+            Application.Run(new PlanNutricional());
         }
     }
 }

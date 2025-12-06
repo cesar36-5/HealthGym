@@ -91,21 +91,13 @@ namespace HealthGym
                 Lbl_Nombre.Text = "Nombre: " + miembro.Nombre;
                 Lbl_Sexo.Text = "Sexo: " + miembro.Sexo;
 
-                EntMonitoreo mon = LogMonitoreo.Instancia.BuscarMonitoreoReciente(miembro.Id);
-
-                if (mon != null)
-                { }
+                EntEvaluacionNutricional ev = LogEvaluacionNutricional.Instancia.BuscarEvXDNI(Tbox_DNI.Text);
+                if (ev != null)
+                {
+                }
                 else
                 {
-                    EntEvaluacionNutricional ev = LogEvaluacionNutricional.Instancia.BuscarEvaluacion(Tbox_DNI.Text);
-                    if (ev != null)
-                    {
-
-                    }
-                    else
-                    {
-                        throw new Exception("No se encontro una evaluacion asociada al miembro");
-                    }
+                    throw new Exception("No se encontró una evaluación asociada al miembro");
                 }
 
                 groupBox2.Enabled = true;

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    public class EntEvaluacionNutricional
+    public class EntMonitoreo
     {
-        public int IdMiembro { get; set; }
         public decimal Estatura { get; set; }
         public decimal Peso { get; set; }
         public float IMC { get; set; }
@@ -17,19 +16,10 @@ namespace CapaEntidad
         public decimal Gluteo { get; set; }
         public decimal Cintura { get; set; }
         public decimal Pecho { get; set; }
-      
-        public string Nota { get; set; } = string.Empty;
-          
+        public string Nota { get; set; }
         public int ObjetivoCalorico { get; set; }
-        public char NivelActividad { get; set; }
+        public string NivelActividad { get; set; }
         public int FrecuenciaActividad { get; set; }
-
-        public string Nombres { get; set; } = string.Empty;
-        public string Apellidos { get; set; } = string.Empty;
-        public string DNI { get; set; } = string.Empty;
-        public string Sexo { get; set; } = string.Empty;
-        public int Edad { get; set; }             
-        public DateTime FechaNacimiento { get; set; } 
         public DateTime? Fecha { get; set; }
     }
 }

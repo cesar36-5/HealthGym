@@ -105,7 +105,60 @@ namespace CapaDatos
 
             return e;
         }
-        
+
+        public EntEvaluacionNutricional ObtenerEvaluacionRecientePorDNI(string dni)
+        {
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    SqlCommand cmd = new SqlCommand("sp_BuscarEvaluacionReciente", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@DNI", dni);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new EntEvaluacionNutricional
+                            {
+                                IdMiembro = Convert.ToInt32(dr["IdMiembro"]),
+                                Estatura = dr.GetDecimal(dr.GetOrdinal("Estatura")),
+                                Peso = dr.GetDecimal(dr.GetOrdinal("Peso")),
+                                IMC = Convert.ToSingle(dr["IMC"]),
+                                Brazo = dr.GetDecimal(dr.GetOrdinal("Brazo")),
+                                Pierna = dr.GetDecimal(dr.GetOrdinal("Pierna")),
+                                Gluteo = dr.GetDecimal(dr.GetOrdinal("Gluteo")),
+                                Cintura = dr.GetDecimal(dr.GetOrdinal("Cintura")),
+                                Pecho = dr.GetDecimal(dr.GetOrdinal("Pecho")),
+                                Nota = dr["Nota"].ToString(),
+                                ObjetivoCalorico = Convert.ToInt32(dr["ObjetivoCalorico"]),
+                                NivelActividad = Convert.ToChar(dr["NivelActividad"]),
+                                FrecuenciaActividad = Convert.ToInt32(dr["FrecuenciaActividad"]),
+                                Fecha = Convert.ToDateTime(dr["Fecha"]),
+
+                                // Datos del miembro
+                                Nombres = dr["Nombres"].ToString(),
+                                Apellidos = dr["Apellidos"].ToString(),
+                                DNI = dr["DNI"].ToString(),
+                                Sexo = dr["Sexo"].ToString(),
+                                FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]),
+                                Edad = Convert.ToInt32(dr["Edad"])
+                            };
+                        }
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener evaluación reciente por DNI: " + ex.Message);
+            }
+        }
 
         #endregion métodos
     }

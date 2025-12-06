@@ -30,6 +30,10 @@
         {
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             gboPlatillo = new GroupBox();
+            label9 = new Label();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
             txtProteinas = new TextBox();
             txtGrasas = new TextBox();
             txtCarbohidratos = new TextBox();
@@ -45,16 +49,16 @@
             dgvPlatillo = new DataGridView();
             btnAgregar = new Button();
             btnModificar = new Button();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
+            comboBox1 = new ComboBox();
+            label10 = new Label();
             gboPlatillo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPlatillo).BeginInit();
             SuspendLayout();
             // 
             // gboPlatillo
             // 
+            gboPlatillo.Controls.Add(label10);
+            gboPlatillo.Controls.Add(comboBox1);
             gboPlatillo.Controls.Add(label9);
             gboPlatillo.Controls.Add(label8);
             gboPlatillo.Controls.Add(label7);
@@ -77,6 +81,42 @@
             gboPlatillo.TabIndex = 0;
             gboPlatillo.TabStop = false;
             gboPlatillo.Text = "Datos del platillo";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(274, 331);
+            label9.Name = "label9";
+            label9.Size = new Size(17, 15);
+            label9.TabIndex = 19;
+            label9.Text = "g.";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(274, 270);
+            label8.Name = "label8";
+            label8.Size = new Size(17, 15);
+            label8.TabIndex = 18;
+            label8.Text = "g.";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(274, 202);
+            label7.Name = "label7";
+            label7.Size = new Size(17, 15);
+            label7.TabIndex = 17;
+            label7.Text = "g.";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(274, 131);
+            label6.Name = "label6";
+            label6.Size = new Size(31, 15);
+            label6.TabIndex = 16;
+            label6.Text = "kcal.";
             // 
             // txtProteinas
             // 
@@ -110,7 +150,7 @@
             // 
             txtNombre.Location = new Point(56, 60);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(297, 23);
+            txtNombre.Size = new Size(173, 23);
             txtNombre.TabIndex = 11;
             // 
             // label5
@@ -207,41 +247,23 @@
             btnModificar.UseVisualStyleBackColor = true;
             btnModificar.Click += btnModificar_Click;
             // 
-            // label6
+            // comboBox1
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(274, 131);
-            label6.Name = "label6";
-            label6.Size = new Size(31, 15);
-            label6.TabIndex = 16;
-            label6.Text = "kcal.";
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Desayuno", "Media Mañana", "Almuerzo", "Media Tarde", "Cena" });
+            comboBox1.Location = new Point(235, 60);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(150, 23);
+            comboBox1.TabIndex = 20;
             // 
-            // label7
+            // label10
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(274, 202);
-            label7.Name = "label7";
-            label7.Size = new Size(17, 15);
-            label7.TabIndex = 17;
-            label7.Text = "g.";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(274, 270);
-            label8.Name = "label8";
-            label8.Size = new Size(17, 15);
-            label8.TabIndex = 18;
-            label8.Text = "g.";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(274, 331);
-            label9.Name = "label9";
-            label9.Size = new Size(17, 15);
-            label9.TabIndex = 19;
-            label9.Text = "g.";
+            label10.AutoSize = true;
+            label10.Location = new Point(235, 31);
+            label10.Name = "label10";
+            label10.Size = new Size(61, 15);
+            label10.TabIndex = 21;
+            label10.Text = "Categoria:";
             // 
             // Platillo
             // 
@@ -283,5 +305,7 @@
         private Label label9;
         private Label label8;
         private Label label7;
+        private Label label10;
+        private ComboBox comboBox1;
     }
 }
